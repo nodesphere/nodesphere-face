@@ -1,0 +1,8 @@
+html {
+  background: #330033;
+}
+
+.double-sided {
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
