@@ -18,44 +18,19 @@ define (require, exports, module) ->
   class Nexus
     @SIZE = 555
 
-    constructor: ->
+    constructor: (params) ->
       @context = Engine.createContext()
       @root = new RenderNode()
 
-      face = new Face
-        content: "<iframe width='100%' height='100%' src='http://bl.ocks.org/harlantwood/raw/8f486a7d5af1b72074b6'></iframe>"
-        transform: Transform.multiply(
-          Transform.rotateY(Math.PI * 0)
-          Transform.translate(0, 0, Nexus.SIZE / 2), 
-        )
-      @root.add(face.modifier).add(face.surface)
-
-      face = new Face
-        content: "<iframe width='100%' height='100%' src='http://processing.nav.nodesphere.org/'></iframe>"
-        transform: Transform.translate(0, 0, Nexus.SIZE / 2)
-        transform: Transform.multiply(
-          Transform.rotateY(Math.PI * .5)
-          Transform.translate(0, 0, Nexus.SIZE / 2), 
-        )
-      @root.add(face.modifier).add(face.surface)
-
-      face = new Face
-        content: "<iframe width='100%' height='100%' src='http://three.nav.nodesphere.org/'></iframe>"
-        transform: Transform.translate(0, 0, Nexus.SIZE / 2)
-        transform: Transform.multiply(
-          Transform.rotateY(Math.PI * 1)
-          Transform.translate(0, 0, Nexus.SIZE / 2), 
-        )
-      @root.add(face.modifier).add(face.surface)
-
-      face = new Face
-        content: "<iframe width='100%' height='100%' src='http://bl.ocks.org/harlantwood/raw/4743857/'></iframe>"
-        transform: Transform.translate(0, 0, Nexus.SIZE / 2)
-        transform: Transform.multiply(
-          Transform.rotateY(Math.PI * 1.5)
-          Transform.translate(0, 0, Nexus.SIZE / 2), 
-        )
-      @root.add(face.modifier).add(face.surface)
+      if params.sources?.length is 4
+        for source, index in params.sources
+          face = new Face
+            content: "<iframe width='100%' height='100%' src='#{source}'></iframe>"
+            transform: Transform.multiply(
+              Transform.rotateY(Math.PI * index * 0.5)
+              Transform.translate(0, 0, Nexus.SIZE / 2)
+            )
+          @root.add(face.modifier).add(face.surface)
 
       initialTime = Date.now()
       center = new Modifier
@@ -84,4 +59,9 @@ define (require, exports, module) ->
           textAlign: "center"
           overflow: "auto"
       
-  new Nexus()
+  new Nexus sources: [
+    'http://bl.ocks.org/harlantwood/raw/8f486a7d5af1b72074b6'
+    'http://processing.nav.nodesphere.org/'
+    'http://three.nav.nodesphere.org/'
+    'http://bl.ocks.org/harlantwood/raw/4743857/'
+  ]
