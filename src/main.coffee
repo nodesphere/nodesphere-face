@@ -11,7 +11,6 @@ define (require, exports, module) ->
   Surface = require 'famous/core/Surface' 
   Modifier = require 'famous/core/Modifier' 
   Transform = require 'famous/core/Transform' 
-  ImageSurface = require 'famous/surfaces/ImageSurface' 
 
   {type} = require 'lightsaber/lib/type'
 
