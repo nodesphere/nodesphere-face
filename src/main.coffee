@@ -13,17 +13,23 @@ define (require, exports, module) ->
   Transform = require 'famous/core/Transform' 
   ImageSurface = require 'famous/surfaces/ImageSurface' 
 
+  {type} = require 'lightsaber/lib/type'
+
   if ENV is "dev" then {log, p} = require 'lightsaber/lib/log'
 
   class Nexus
     @SIZE = 555
 
     constructor: (params) ->
+      sources = params.sources
+      if type(sources) isnt 'array' then throw "required parameter sources must be an array"
+      if sources.length < 1 then throw "expected 1 or more sources"
+
       @context = Engine.createContext()
       @root = new RenderNode()
 
-      if params.sources?.length is 4
-        for source, index in params.sources
+      if sources.length <= 4
+        for source, index in sources
           face = new Face
             content: "<iframe width='100%' height='100%' src='#{source}'></iframe>"
             transform: Transform.multiply(
@@ -31,6 +37,8 @@ define (require, exports, module) ->
               Transform.translate(0, 0, Nexus.SIZE / 2)
             )
           @root.add(face.modifier).add(face.surface)
+      else 
+        throw "Unsupported sources length #{sources.length}"
 
       initialTime = Date.now()
       center = new Modifier
