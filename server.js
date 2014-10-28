@@ -12,5 +12,5 @@ app.get('*', function (req, res) {
 
 port = process.env.PORT || 8080
 if (server.listen(port))
-  console.log("...listening up on " + port); 
+  console.log("...server up on " + port); 
 
