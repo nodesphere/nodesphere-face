@@ -7,10 +7,11 @@
     "edge"
   ],
   "scripts": {
-    "build": "webpack --minify --env=production",
-    "open": "open http://localhost:8080/",
-    "serve": "./node_modules/.bin/webpack-dev-server --reload=localhost",
-    "start": "node server.js"
+    "build": "./node_modules/.bin/webpack --minify --env=production",
+    "serve-dev": "./node_modules/.bin/webpack-dev-server --reload=localhost",
+    "serve-production": "node server.js",
+    "serve": "npm run serve-dev",
+    "start": "npm run serve-production"
   },
   "version": "0.0.1",
   "private": true,
