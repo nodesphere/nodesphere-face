@@ -27,7 +27,7 @@ define (require, exports, module) ->
       if sources.length < 1 then throw "expected 1 or more sources"
 
       @context = Engine.createContext()
-      @context.setPerspective Nexus.SIZE * PHI
+      @context.setPerspective Nexus.SIZE * Math.pow(PHI, 5)
       @root = new RenderNode()
 
       if sources.length <= 4
